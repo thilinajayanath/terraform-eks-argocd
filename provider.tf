@@ -33,19 +33,3 @@ provider "helm" {
     token                  = data.aws_eks_cluster_auth.test.token
   }
 }
-
-/*
-https://github.com/hashicorp/terraform-provider-kubernetes/issues/1028
-
-provider "kubernetes" {
-  config_path    = "~/.kube/config"
-  config_context = "test-eks"
-}
-
-provider "helm" {
-  kubernetes {
-    config_path    = "~/.kube/config"
-    config_context = "test-eks"
-  }
-}
-*/
