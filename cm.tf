@@ -21,15 +21,7 @@ resource "kubernetes_config_map" "aws_auth" {
           "system:nodes",
         ]
       },
-      {
-        rolearn  = "${aws_iam_role.eks_cluster.arn}"
-        username = "system:node:{{EC2PrivateDNSName}}"
-        groups = [
-          "system:bootstrappers",
-          "system:nodes",
-        ]
-      }]
-    )
+    ])
   }
 
   lifecycle {
@@ -64,14 +56,6 @@ resource "kubernetes_config_map_v1_data" "aws_auth" {
           "system:nodes",
         ]
       },
-      /*{
-        rolearn  = "${aws_iam_role.eks_cluster.arn}"
-        username = "system:node:{{EC2PrivateDNSName}}"
-        groups = [
-          "system:bootstrappers",
-          "system:nodes",
-        ]
-      }*/
     ])
   }
 
