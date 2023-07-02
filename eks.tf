@@ -162,9 +162,7 @@ resource "aws_autoscaling_group" "eks_worker" {
     propagate_at_launch = true
   }
 
-  depends_on = [
-    aws_launch_template.eks_worker
-  ]
+  depends_on = [aws_launch_template.eks_worker]
 
   lifecycle {
     ignore_changes = [desired_capacity]

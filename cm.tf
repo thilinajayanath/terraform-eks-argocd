@@ -7,8 +7,8 @@ resource "kubernetes_config_map" "aws_auth" {
   data = {
     mapUsers = yamlencode([
       {
-        userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/thilina"
-        username = "thilina"
+        userarn  = data.aws_caller_identity.current.arn
+        username = element(split("/", data.aws_arn.current_user.resource), length(split("/", data.aws_arn.current_user.resource)) - 1)
         groups   = ["system:masters"]
       },
     ])
@@ -25,8 +25,6 @@ resource "kubernetes_config_map" "aws_auth" {
   }
 
   lifecycle {
-    # We are ignoring the data here since we will manage it with the resource below
-    # This is only intended to be used in scenarios where the configmap does not exist
     ignore_changes = [data, metadata[0].labels, metadata[0].annotations]
   }
 }
@@ -42,8 +40,8 @@ resource "kubernetes_config_map_v1_data" "aws_auth" {
   data = {
     mapUsers = yamlencode([
       {
-        userarn  = "arn:aws:iam::${data.aws_caller_identity.current.account_id}:user/thilina"
-        username = "thilina"
+        userarn  = data.aws_caller_identity.current.arn
+        username = element(split("/", data.aws_arn.current_user.resource), length(split("/", data.aws_arn.current_user.resource)) - 1)
         groups   = ["system:masters"]
       },
     ])
@@ -60,7 +58,6 @@ resource "kubernetes_config_map_v1_data" "aws_auth" {
   }
 
   depends_on = [
-    # Required for instances where the configmap does not exist yet to avoid race condition
     kubernetes_config_map.aws_auth,
   ]
 }
