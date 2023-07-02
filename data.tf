@@ -24,6 +24,12 @@ data "aws_iam_policy_document" "assume_role_ec2" {
   }
 }
 
+data "aws_arn" "current_user" {
+  arn = data.aws_caller_identity.current.arn
+}
+
+data "aws_caller_identity" "current" {}
+
 data "aws_eks_cluster_auth" "test" {
   name = "test"
 }
@@ -33,5 +39,3 @@ data "aws_eks_cluster" "test" {
 
   depends_on = [aws_eks_cluster.test]
 }
-
-data "aws_caller_identity" "current" {}
