@@ -5,6 +5,7 @@ This github repo is related to the medium article https://thilinajnl.medium.com/
 - Configured AWS profile with permissions to create the required resources
 - Terraform (Code was tested on version 1.5.2)
 - AWS, Helm, and Kubernetes terraform providers
+- Key pair in EC2 service called `ssh`
 
 ## Resources created
 - VPC with public and private subnets
